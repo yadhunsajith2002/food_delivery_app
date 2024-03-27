@@ -422,6 +422,8 @@ class Restaurant extends ChangeNotifier {
     receipt.writeln();
     receipt.writeln("Total Items : ${getTotalItemCount()}");
     receipt.writeln("Total Price : ${_formatPrice(getTotalPrice())}");
+    receipt.writeln();
+    receipt.writeln("Delievring to : $deliveryAdress");
 
     return receipt.toString();
   }
@@ -437,5 +439,17 @@ class Restaurant extends ChangeNotifier {
     return addon
         .map((addon) => "${addon.name} (${_formatPrice(addon.price)})")
         .join(", ");
+  }
+
+  //delivery address
+
+  String _deliveryAdress = '99 HollyWood Blv';
+  String get deliveryAdress => _deliveryAdress;
+
+  // update delivery adress
+
+  void updateDeliveryAdress(String newAdress) {
+    _deliveryAdress = newAdress;
+    notifyListeners();
   }
 }

@@ -8,7 +8,7 @@ class MyReceipt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25, top: 25, bottom: 25),
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 25),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

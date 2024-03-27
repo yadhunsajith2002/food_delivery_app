@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage>
                         endIndent: 15,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                      const MyCurrentLocation(),
+                      MyCurrentLocation(),
                       const DescriptionBox()
                     ],
                   ),

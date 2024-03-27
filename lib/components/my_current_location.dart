@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/restoraunt.dart';
+import 'package:provider/provider.dart';
 
 class MyCurrentLocation extends StatelessWidget {
-  const MyCurrentLocation({super.key});
+  MyCurrentLocation({super.key});
 
-  openLocationSearchBox(BuildContext context) {
+  final TextEditingController textController = TextEditingController();
+
+  void openLocationSearchBox(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Your Location"),
-        content: const TextField(
-          decoration: InputDecoration(hintText: "Search Address"),
+        content: TextField(
+          controller: textController,
+          decoration: const InputDecoration(hintText: "Enter Address"),
         ),
         actions: [
           MaterialButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              textController.clear();
+            },
             child: const Text("Cancel"),
           ),
           MaterialButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              String newAdress = textController.text;
+              context.read<Restaurant>().updateDeliveryAdress(newAdress);
+              print("my adress $newAdress");
+              print(textController.text);
+              textController.clear();
+
+              Navigator.pop(context);
+            },
             child: const Text("Save"),
           ),
         ],
@@ -42,11 +58,13 @@ class MyCurrentLocation extends StatelessWidget {
             onTap: () => openLocationSearchBox(context),
             child: Row(
               children: [
-                Text(
-                  "56416 Hollywood Blv",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                Consumer<Restaurant>(
+                  builder: (context, restuarant, child) => Text(
+                    restuarant.deliveryAdress,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
                   ),
                 ),
                 const Icon(Icons.keyboard_arrow_down_rounded)
